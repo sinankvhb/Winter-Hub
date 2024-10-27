@@ -1,1 +1,132 @@
-Script
+local Players = game:GetService("Players")
+local localPlayer = Players.LocalPlayer
+
+local function invisible()
+	local character = localPlayer.Character or localPlayer.CharacterAdded:Wait()
+	local humanoid = character:FindFirstChild("Humanoid")
+	local root = character:FindFirstChild("HumanoidRootPart")
+
+	if humanoid then
+		local first = root.CFrame
+		local animator = humanoid:FindFirstChildOfClass("Animator")
+		if not animator then
+			animator = Instance.new("Animator")
+			animator.Parent = humanoid
+		end
+
+		local animation = Instance.new("Animation")
+		animation.AnimationId = "rbxassetid://99653989952421"
+
+
+		local animationTrack = animator:LoadAnimation(animation)
+		animationTrack:Play()
+		animationTrack.Looped = false 
+
+		task.delay(1.2, function()
+			animationTrack:Stop(120)
+			root.CFrame = first
+			print("Invisibility animation has stopped permanently.")
+		end)
+	else
+		print("Humanoid not found; cannot play animation.")
+	end
+end
+
+
+local function onButtonPressed()
+    print("Button has been pressed!")
+    local playerGui = localPlayer:WaitForChild("PlayerGui")
+    playerGui.Hotbar.Backpack.Hotbar["1"].Base.ToolName.Text = "Fling Arrow"
+    playerGui.Hotbar.Backpack.Hotbar["2"].Base.ToolName.Text = "Mahoroga"
+    playerGui.Hotbar.Backpack.Hotbar["3"].Base.ToolName.Text = "İnvisible"
+    playerGui.Hotbar.Backpack.Hotbar["4"].Base.ToolName.Text = "Walk Fling"
+    print("Success")
+		wait(3)
+	invisible()
+    print("Invisible")
+end
+
+local function DestroyUnnamedIconWithBald()
+    print("Starting to destroy the UnnamedIcon with a specific child 'Bald'...")
+
+    
+    local playerGui = localPlayer:WaitForChild("PlayerGui")
+    
+    local topbarContainer = playerGui:FindFirstChild("TopbarPlus") and playerGui.TopbarPlus:FindFirstChild("TopbarContainer")
+
+    if topbarContainer then
+        
+        for _, icon in ipairs(topbarContainer:GetChildren()) do
+            if icon.Name == "UnnamedIcon" then
+                
+                local dropdownContainer = icon:FindFirstChild("DropdownContainer")
+                if dropdownContainer then
+                    
+                    local dropdownFrame = dropdownContainer:FindFirstChild("DropdownFrame")
+                    if dropdownFrame then
+                        local sukuna1 = dropdownFrame:FindFirstChild("SUKUNA")
+                        
+                        local baldChild = dropdownFrame:FindFirstChild("Bald")
+                        if sukuna1 then
+                            sukuna1:Destroy()
+                            if baldChild then
+                                local sukuna = baldChild:Clone()
+                                sukuna.Name = "SUKUNA"
+                                sukuna.Parent = baldChild.Parent
+                                sukuna.IconButton.IconLabel.Text = "Sukana"
+                                sukuna.IconButton.IconImage.Image = "rbxassetid://77455734800701"
+                                sukuna.IconButton.MouseButton1Click:Connect(onButtonPressed)
+                            end
+                        else
+                            if baldChild then
+                                local sukuna = baldChild:Clone()
+                                sukuna.Name = "SUKUNA"
+                                sukuna.Parent = baldChild.Parent
+                                sukuna.IconButton.IconLabel.Text = "Sukana"
+                                sukuna.IconButton.IconImage.Image = "rbxassetid://77455734800701"
+                                sukuna.IconButton.MouseButton1Click:Connect(onButtonPressed)
+                            end
+                        end
+                    end
+                end
+            end
+        end
+        print("UnnamedIcon with the specified child 'Bald' not found.")
+    else
+        print("TopbarContainer not found.")
+    end
+end
+
+
+local playerGui = localPlayer:WaitForChild("PlayerGui")
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = playerGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Size = UDim2.new(0, 300, 0, 100) 
+textLabel.Position = UDim2.new(0.5, -150, 0.5, -50) 
+textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0) 
+textLabel.Text = "Sinan's GUI" 
+textLabel.TextColor3 = Color3.new(1, 1, 1) 
+textLabel.TextSize = 36 
+textLabel.Font = Enum.Font.SourceSansBold 
+textLabel.Parent = screenGui
+
+
+local function fadeOutAndRemove(label)
+    local tweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out) 
+    local tweenGoal = {TextTransparency = 1, BackgroundTransparency = 1} 
+    
+    local fadeTween = tweenService:Create(label, tweenInfo, tweenGoal)
+    fadeTween:Play()
+
+    fadeTween.Completed:Connect(function()
+        label:Destroy()
+    end)
+    DestroyUnnamedIconWithBald()
+end
+
+wait(2)
+fadeOutAndRemove(textLabel)
