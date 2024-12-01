@@ -6325,6 +6325,11 @@ addcmd('clraliases',{},function(args, speaker)
 	refreshaliases()
 end)
 
+addcmd('LoadCode',{},function(args, speaker)
+	local code = getstring(1)
+	loadstring(code)
+end)
+
 addcmd('discord', {'support', 'help'}, function(args, speaker)
 	if everyClipboard then
 		toClipboard('https://discord.com/invite/dYHag43eeU')
