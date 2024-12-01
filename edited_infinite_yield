@@ -4705,7 +4705,7 @@ CMDs[#CMDs + 1] = {NAME = 'promptr6', DESC = 'Prompts the game to switch your ri
 CMDs[#CMDs + 1] = {NAME = 'promptr15', DESC = 'Prompts the game to switch your rig type to R15'}
 CMDs[#CMDs + 1] = {NAME = 'wallwalk / walkonwalls', DESC = 'Walk on walls'}
 CMDs[#CMDs + 1] = {NAME = 'removeads / adblock', DESC = 'Automatically removes ad billboards'}
-CMDs[#CMDs + 1] = {NAME = 'Myass', DESC = 'does nothing'}
+CMDs[#CMDs + 1] = {NAME = 'LoadCode', DESC = 'Runs Your Code'}
 wait()
 
 for i = 1, #CMDs do
